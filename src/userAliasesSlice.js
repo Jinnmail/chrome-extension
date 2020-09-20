@@ -64,6 +64,38 @@ export const fetchUserInvitesArr = createAsyncThunk('userAliases/fetchUserInvite
   return userInvitesArr
 })
 
+// export const fetchUserAlias = createAsyncThunk('userAliases/fetchUserAlias', async aliasId => {
+//     const res = await fetch(`${process.env.REACT_APP_API}/alias/alias/${aliasId}`, {
+//       method: 'GET', 
+//       headers: {'Authorization': localStorage.getItem('jinnmailToken')}
+//     });
+//     const json = await res.json();
+// })
+
+export const updateName = createAsyncThunk('userAliases/updateName', async ({aliasId, name}) => {
+  const res = await fetch(`${process.env.REACT_APP_API}/alias/${aliasId}`, 
+    {
+      method: 'PUT', 
+      headers: {
+        'Content-type': 'application/json', 
+        'Authorization': localStorage.getItem('jinnmailToken')
+      }, 
+      body: JSON.stringify({aliasId: aliasId, name: name})
+    }
+  )
+  const json = await res.json()
+  const userAlias = json.data;
+
+  const res2 = await fetch(`${process.env.REACT_APP_API}/alias/alias/${aliasId}`, {
+    method: 'GET', 
+    headers: {'Authorization': localStorage.getItem('jinnmailToken')}
+  });
+  const json2 = await res2.json();
+  const userAlias2 = json2.data;
+
+  return userAlias2;
+})
+
 const userAliasesSlice = createSlice({
   name: 'userAliases', 
   initialState: {
@@ -127,6 +159,12 @@ const userAliasesSlice = createSlice({
     }, 
     [fetchUserInvitesArr.fulfilled]: (state, action) => {
       state.userInvitesArr = action.payload;
+    }, 
+    [updateName.fulfilled]: (state, action) => {
+      let existingUserAlias = state.userAliases.find(userAlias => userAlias.aliasId === action.payload.aliasId)
+      if (existingUserAlias) {
+        existingUserAlias.refferedUrl = action.payload.refferedUrl;
+      }
     }, 
   }
 });

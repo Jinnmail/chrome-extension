@@ -1,5 +1,7 @@
 import React, { Fragment, useEffect } from 'react';
+import {useDispatch} from 'react-redux';
 import {useParams} from 'react-router-dom';
+import {updateName} from './userAliasesSlice';
 import {Button, FormControlLabel, FormGroup, Grid, IconButton, Switch, TextField, Typography} from '@material-ui/core';
 import {DeleteForever as DeleteForeverIcon} from '@material-ui/icons';
 import ConfirmAliasDeletion from './ConfirmAliasDeletion';
@@ -12,6 +14,8 @@ function Alias() {
   const [nameButtonText, setNameButtonText] = React.useState('edit');
   const [nameTextReadOnly, setNameTextReadOnly] = React.useState(true);
   const [nameTextValue, setNameTextValue] = React.useState('');
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     fetchData(aliasId)
@@ -32,6 +36,7 @@ function Alias() {
       setNameTextReadOnly(false);
       setNameButtonText('save')
     } else {
+      dispatch(updateName({aliasId: aliasId, name: nameTextValue}));
       const res = await fetch(`${process.env.REACT_APP_API}/alias/${aliasId}`, 
       {
         method: 'PUT', 
