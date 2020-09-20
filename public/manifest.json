@@ -1,0 +1,65 @@
+{
+  "name": "Jinnmail — Privacy for your email address",
+  "version": "1.34",
+  "description": "Camouflage your Gmail. Fight spam, hackers, surveillance with secret temporary aliases while your address stays private & spam-free.",
+  "author": "Jinnmail <https://jinnmail.com>", 
+  "permissions": [
+    "activeTab",
+    "storage",
+    "contextMenus",
+    "http://*/*",
+    "https://*/*"
+  ], 
+  "icons": {
+    "16": "icons/icon-straight-16.png",
+    "19": "icons/icon-straight-19.png",
+    "24": "icons/icon-straight-24.png",
+    "32": "icons/icon-straight-32.png",
+    "38": "icons/icon-straight-38.png",
+    "48": "icons/icon-straight-48.png",
+    "128": "icons/icon-straight-128.png"
+  },
+  "background": {
+    "scripts": ["scripts/background.js"]
+  }, 
+  "externally_connectable": {
+    "matches": [
+        "https://jinnmail.com/account/",
+        "https://jinnmail.com/",
+        "https://account.jinnmail.com/*", 
+        "http://localhost:3001/*", 
+        "https://testling.xyz/*"
+    ],
+    "accepts_tls_channel_id": false
+  },
+  "content_scripts": [
+    {
+        "all_frames": true,
+        "js": [
+          "scripts/jQuery.js",
+          "scripts/content.js"
+        ],
+        "matches": [
+            "<all_urls>"
+        ],
+        "css": [
+            "styles/content.css"
+        ],
+        "run_at": "document_end"
+    }
+],
+  "browser_action": {
+    "default_icon": {
+      "16": "icons/icon-straight-16.png",
+      "19": "icons/icon-straight-19.png",
+      "24": "icons/icon-straight-24.png",
+      "32": "icons/icon-straight-32.png",
+      "38": "icons/icon-tilted-38.png",
+      "48": "icons/icon-tilted-48.png",
+      "128": "icons/icon-tilted-128.png"
+    },
+    "default_popup": "index.html",
+    "default_title": "Jinnmail"
+  },
+  "manifest_version": 2
+}
