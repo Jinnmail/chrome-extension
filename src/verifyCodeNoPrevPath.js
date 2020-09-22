@@ -69,6 +69,14 @@ function VerifyCode(props) {
       <Grid item xs={12}>&nbsp;</Grid>
       <Grid item xs={12}>&nbsp;</Grid>
       <Grid item xs={12} style={{textAlign: 'center'}}>Not received? <small><a href="#" onClick={onResendCodeClick}>Resend code</a></small></Grid>
+      <Grid item xs={12}>&nbsp;</Grid>
+      <Grid item xs={4}></Grid>
+      <Grid item xs={4}>
+        <Link to="/signUp" style={{textDecoration: 'none'}}>
+          <Button variant="outlined" color="primary" fullWidth>Home</Button>
+        </Link>
+      </Grid>
+      <Grid item xs={4}></Grid>
     </Grid>
   )
 }

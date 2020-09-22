@@ -19,13 +19,14 @@ import ForgotPasswordSet from './ForgotPasswordSet';
 import SignUp from './SignUp'; 
 import ManageInvites from './ManageInvites';
 import VerifyCodeNoPrevPath from './verifyCodeNoPrevPath';
+import Checkout from './Checkout';
 
 function App() {
 
   function defaultPage() {
-    if (LoginUtil.verifyCode() === true) {
+    if (LoginUtil.verifyCode()) {
       return <Redirect to='/verifyCode2' />
-    } else if (LoginUtil.loggedIn() === true) {
+    } else if (LoginUtil.loggedIn()) {
       return <Redirect to='/signedin' />
     } else {
       return <Redirect to='/login' />
@@ -37,7 +38,7 @@ function App() {
       <Route
         {...rest}
         render={({ location }) =>
-          LoginUtil.loggedIn() === true ? (
+          LoginUtil.loggedIn() ? (
             children
           ) : (
             <Redirect
@@ -71,14 +72,6 @@ function App() {
       fetchPaid()
     }, [])
 
-    const checkout = () => {
-      chrome.storage.sync.get(['sessionToken'], (token) => {
-        if (token) {
-          chrome.tabs.create({url: `${process.env.REACT_APP_DASHBOARD_URL}/x/${token.sessionToken}`});
-        }
-      });
-    }
-
     if (loaded) {
       return (
         <Route
@@ -87,13 +80,7 @@ function App() {
             paid ? (
               children
             ) : (
-              checkout()
-              // <Redirect
-              //   to={{
-              //     pathname: "/checkout",
-              //     state: { from: location }
-              //   }}
-              // />
+              <Redirect to="/checkout" />
             )
           }
         />
@@ -145,6 +132,9 @@ function App() {
         <PrivateRoute exact path="/invites">
           <ManageInvites />
         </PrivateRoute>
+        <Route path="/checkout">
+          <Checkout />
+        </Route>
         {defaultPage()}
         {/* <Redirect to='/notsignedin' /> */}
       </Switch>

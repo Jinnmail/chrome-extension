@@ -18,7 +18,7 @@ class loginUtil {
   }
 
   verifyCode = () => {
-    return localStorage.getItem('verifyCode');
+    return (localStorage.getItem('verifyCode') === 'true');
   }
 
   // userId = () => {
