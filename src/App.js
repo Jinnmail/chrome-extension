@@ -1,5 +1,6 @@
+/*global chrome*/
 import React, {useEffect} from 'react';
-import {BrowserRouter as Router, Redirect, Route, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Redirect, Route, Switch, useHistory} from 'react-router-dom';
 import logo from './logo.svg';
 import { Counter } from './features/counter/Counter';
 import './App.css';
@@ -17,14 +18,26 @@ import VerifyCode from './VerifyCode';
 import ForgotPasswordSet from './ForgotPasswordSet';
 import SignUp from './SignUp'; 
 import ManageInvites from './ManageInvites';
+import VerifyCodeNoPrevPath from './verifyCodeNoPrevPath';
 
 function App() {
+
+  function defaultPage() {
+    if (LoginUtil.verifyCode() === true) {
+      return <Redirect to='/verifyCode2' />
+    } else if (LoginUtil.loggedIn() === true) {
+      return <Redirect to='/signedin' />
+    } else {
+      return <Redirect to='/login' />
+    }
+  }
+
   function PrivateRoute({ children, ...rest }) {
     return (
       <Route
         {...rest}
         render={({ location }) =>
-          LoginUtil.loggedIn() ? (
+          LoginUtil.loggedIn() === true ? (
             children
           ) : (
             <Redirect
@@ -39,6 +52,57 @@ function App() {
     );
   }
 
+  function PrivateRoute2({ children, ...rest }) {
+    const [loaded, setLoaded] = React.useState(false);
+    const [paid, setPaid] = React.useState(false);
+
+    async function fetchPaid() {
+      const userId = JSON.parse(atob(localStorage.getItem("jinnmailToken").split('.')[1])).userId
+      const res = await fetch(`${process.env.REACT_APP_API}/user/${userId}`, {
+        method: 'GET', 
+        headers: {'Authorization': localStorage.getItem("jinnmailToken")},
+      })
+      const json = await res.json();
+      setPaid(json.premium);
+      setLoaded(true);
+    }
+
+    useEffect(() => {
+      fetchPaid()
+    }, [])
+
+    const checkout = () => {
+      chrome.storage.sync.get(['sessionToken'], (token) => {
+        if (token) {
+          chrome.tabs.create({url: `${process.env.REACT_APP_DASHBOARD_URL}/x/${token.sessionToken}`});
+        }
+      });
+    }
+
+    if (loaded) {
+      return (
+        <Route
+          {...rest}
+          render={({ location }) =>
+            paid ? (
+              children
+            ) : (
+              checkout()
+              // <Redirect
+              //   to={{
+              //     pathname: "/checkout",
+              //     state: { from: location }
+              //   }}
+              // />
+            )
+          }
+        />
+      )
+    } else {
+      return null;
+    }
+  }
+
   return (
     <Router>
       <Switch>
@@ -48,9 +112,9 @@ function App() {
         <Route exact path={["/forgotPasswordSet", '/changePasswordSet']}>
           <ForgotPasswordSet />
         </Route>
-        <PrivateRoute exact path="/signedin">
+        <PrivateRoute2 exact path="/signedin">
           <SignedIn />
-        </PrivateRoute>
+        </PrivateRoute2>
         <Route path="/notsignedin">
           <NotSignedIn />
         </Route>
@@ -75,10 +139,14 @@ function App() {
         <Route path="/verifyCode">
           <VerifyCode />
         </Route>
+        <Route path="/verifyCode2">
+          <VerifyCodeNoPrevPath />
+        </Route>
         <PrivateRoute exact path="/invites">
           <ManageInvites />
         </PrivateRoute>
-        <Redirect to='/signedin' />
+        {defaultPage()}
+        {/* <Redirect to='/notsignedin' /> */}
       </Switch>
     </Router>
   );

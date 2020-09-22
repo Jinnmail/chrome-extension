@@ -85,7 +85,6 @@ function Alias() {
   }
 
   const handleClickModalOpen = () => {
-    alert()
     // setModalOpen(true);
   }
 

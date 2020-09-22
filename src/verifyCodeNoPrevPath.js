@@ -12,33 +12,16 @@ function VerifyCode(props) {
   const verifyCodeChanged = async (event) => {
     const inputNumber = event.target.value.replace(/\s/g, '');
     if (Number(inputNumber)) {
-      if (props.history.location.state.prevPath === '/signUp') {
-        res = await fetch(`${process.env.REACT_APP_API}/user/code/verify`, {
-          method: 'POST', 
-          headers: {'Content-type': 'application/json'}, 
-          body: JSON.stringify({email: localStorage.getItem('email'), code: inputNumber})
-        })
-        // localStorage.setItem('verifyCode', false);
-        // chrome.storage.local.set({"verifyCode": false}, function() {})
-      } else {
-        res = await fetch(`${process.env.REACT_APP_API}/user/code/resetPasswordTokenVerify`, {
-          method: 'POST', 
-          headers: {'Content-type': 'application/json'}, 
-          body: JSON.stringify({email: localStorage.getItem('email'), token: inputNumber})
-        })
-      }
+      res = await fetch(`${process.env.REACT_APP_API}/user/code/verify`, {
+        method: 'POST', 
+        headers: {'Content-type': 'application/json'}, 
+        body: JSON.stringify({email: localStorage.getItem('email'), code: inputNumber})
+      })
+      localStorage.setItem('verifyCode', false);
       const json = await res.json()
       if (!json.error) {
         setShowSuccessIcon(true)
-        if (props.history.location.state.prevPath === '/forgotPassword') {
-          localStorage.setItem('resetPasswordToken', inputNumber)
-          props.history.push(`/forgotPasswordSet`)
-        } else if (props.history.location.state.prevPath === '/changePassword') {
-          localStorage.setItem('resetPasswordToken', inputNumber)
-          props.history.push(`/changePasswordSet`)
-        } else if (props.history.location.state.prevPath === '/signUp') {
-          props.history.push('/login')
-        }
+        props.history.push('/login')
       }
     } else {
       setShowSuccessIcon(false)
@@ -64,15 +47,12 @@ function VerifyCode(props) {
         <h3>Verify email code</h3>
       </Grid>
       <Grid item xs={12}></Grid>
-      {
-        (props.history.location.state.prevPath === '/forgotPassword') &&
-          <Fragment>
-            <Grid item xs={12} style={{textAlign: 'center'}}>
-              If this account exists...
-            </Grid>
-            <Grid item xs={12}>&nbsp;</Grid>
-          </Fragment> 
-      }
+        <Fragment>
+          <Grid item xs={12} style={{textAlign: 'center'}}>
+            If this account exists...
+          </Grid>
+          <Grid item xs={12}>&nbsp;</Grid>
+        </Fragment> 
       <Grid item xs={12} style={{textAlign: 'center'}}>
         You should have recieved a code emailed to <br />
         [{localStorage.getItem('email')}]. Enter it below.

@@ -1,3 +1,4 @@
+/*global chrome*/
 import React from 'react';
 import {useHistory, withRouter} from "react-router-dom";
 // import ReCAPTCHA from "react-google-recaptcha";
@@ -78,6 +79,7 @@ function Signup(props) {
         })
         const json = await res.json();
         if (!json.error) {
+          localStorage.setItem('verifyCode', true);
           localStorage.setItem('email', email);
           const location = {
             pathname: '/verifyCode',

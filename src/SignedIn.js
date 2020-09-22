@@ -53,13 +53,7 @@ function SignedIn(props) {
   const handleDashboard = () => {
     chrome.storage.sync.get(['sessionToken'], (token) => {
         if (token) {
-            var js = `localStorage.setItem('jinnmailToken', '${token.sessionToken}');`;
-            chrome.tabs.executeScript({
-                allFrames: true,
-                code: js
-            });
-            localStorage.setItem('jinnmailToken', token.sessionToken);
-            chrome.tabs.create({ url: process.env.REACT_APP_DASHBOARD_URL })
+          chrome.tabs.create({ url: `${process.env.REACT_APP_DASHBOARD_URL}/x/${token.sessionToken}`})
         }
     });
   }
