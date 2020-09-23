@@ -205,12 +205,13 @@ function Account(props) {
               )
             }}
           />
-          <div style={{marginBottom: 5}}>
+          {/* <div style={{marginBottom: 5}}>
             <small>
               <Link to={location}>Forgot Password?</Link>
             </small>
-          </div>
+          </div> */}
         </Grid>
+        <Grid item xs={12}>&nbsp;</Grid>
         <Grid item xs={12}>
           <TextField 
             variant='outlined'

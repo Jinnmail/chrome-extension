@@ -130,11 +130,11 @@ const Login = (props) => {
               />
               {submitting && <LinearProgress />}
             </Grid>
-            <Grid item xs={12} style={{textAlign: 'left'}}>
+            {/* <Grid item xs={12} style={{textAlign: 'left'}}>
               <small>
                 <Link to={location}>Forgot Password?</Link>
               </small>
-            </Grid>
+            </Grid> */}
           </Grid>
         </Grid>
         <Grid item xs={12}>&nbsp;</Grid>
