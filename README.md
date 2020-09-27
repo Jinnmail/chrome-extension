@@ -2,6 +2,7 @@
 
 ### Prepare Release
 ```
+change global variable in background.js
 use .env not .env.local for building a release so test server urls get used instead of your local
 npm run build
 zip build folder to build.zip
