@@ -2,7 +2,7 @@
 import React, {useEffect} from 'react';
 import {BrowserRouter as Router, Redirect, Route, Switch, useHistory} from 'react-router-dom';
 import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
+// import { Counter } from './features/counter/Counter';
 import './App.css';
 import {Button, Divider, Grid, List, ListItem} from '@material-ui/core';
 import SignedIn from './SignedIn';
@@ -12,26 +12,8 @@ import Account from './Account';
 import Alias from './Alias'; 
 import CreateAlias from './CreateAlias'; 
 import AllAliases from './AllAliases';
-import Login from './Login'; 
-import ForgotPassword from './ForgotPassword';
-import VerifyCode from './VerifyCode';
-import ForgotPasswordSet from './ForgotPasswordSet';
-import SignUp from './SignUp'; 
-import ManageInvites from './ManageInvites';
-import VerifyCodeNoPrevPath from './verifyCodeNoPrevPath';
-import Checkout from './Checkout';
 
 function App() {
-
-  function defaultPage() {
-    if (LoginUtil.verifyCode()) {
-      return <Redirect to='/verifyCode2' />
-    } else if (LoginUtil.loggedIn()) {
-      return <Redirect to='/signedin' />
-    } else {
-      return <Redirect to='/login' />
-    }
-  }
 
   function PrivateRoute({ children, ...rest }) {
     return (
@@ -93,7 +75,7 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route exact path={['/forgotPassword', '/changePassword']}>
+        {/* <Route exact path={['/forgotPassword', '/changePassword']}>
           <ForgotPassword />
         </Route>
         <Route exact path={["/forgotPasswordSet", '/changePasswordSet']}>
@@ -135,8 +117,14 @@ function App() {
         <Route path="/checkout">
           <Checkout />
         </Route>
-        {defaultPage()}
-        {/* <Redirect to='/notsignedin' /> */}
+        {defaultPage()} */}
+        <PrivateRoute exact path="/signedin">
+          <SignedIn />
+        </PrivateRoute>
+        <Route path="/notsignedin">
+          <NotSignedIn />
+        </Route>
+        <Redirect to='/signedin' />
       </Switch>
     </Router>
   );

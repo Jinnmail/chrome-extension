@@ -51,11 +51,9 @@ function SignedIn(props) {
   }
 
   const handleDashboard = () => {
-    chrome.storage.sync.get(['sessionToken'], (token) => {
-        if (token) {
-          chrome.tabs.create({ url: `${process.env.REACT_APP_DASHBOARD_URL}/x/${token.sessionToken}`})
-        }
-    });
+    if (localStorage.getItem('jinnmailToken')) {
+      chrome.tabs.create({ url: `${process.env.REACT_APP_DASHBOARD_URL}/x/${localStorage.getItem('jinnmailToken')}`})
+    }
   }
 
   return (

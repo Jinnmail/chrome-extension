@@ -10,20 +10,11 @@ function NotSignedIn(props) {
   // }, [])
 
   const loginClick = async (event) => {
-    props.history.push('/login')
-    // event.preventDefault()
-    // const res = await fetch(`${process.env.REACT_APP_API}/user/session`, {
-    //   method: 'post', 
-    //   headers: {'Content-type': 'application/json'}, 
-    //   body: JSON.stringify({email: process.env.REACT_APP_USERNAME, password: process.env.REACT_APP_PASSWORD})
-    // })
-    // const json = await res.json();
-    // if (!json.error) {
-    //   localStorage.setItem("jinnmailToken", json.data.sessionToken);
-    //   props.history.push('/signedin')
-    // } else {
-    //   alert(json.error)
-    // }
+    chrome.tabs.create({ url: `${process.env.REACT_APP_DASHBOARD_URL}/login`})
+  }
+
+  const createAccountClick = async (event) => {
+    chrome.tabs.create({url: `${process.env.REACT_APP_DASHBOARD_URL}/signup`})
   }
 
   return (
@@ -49,10 +40,7 @@ function NotSignedIn(props) {
       <Grid item xs={12}>&nbsp;</Grid>
       <Grid item xs={12} style={{textAlign: 'center'}}>
         <Button variant="contained" color="primary" onClick={loginClick}>Log In</Button> &nbsp;
-        <Link to="/signUp" style={{textDecoration: 'none'}}>
-          <Button variant="outlined" color="primary">Create Account</Button>
-        </Link>
-        {/* <Button variant="outlined" color="primary">Create Account</Button> */}
+        <Button variant="outlined" color="primary" onClick={createAccountClick}>Create Account</Button>
       </Grid>
       <Grid item xs={12}>&nbsp;</Grid>
       <Grid item xs={12}>&nbsp;</Grid>

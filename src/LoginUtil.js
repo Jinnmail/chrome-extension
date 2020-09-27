@@ -1,3 +1,5 @@
+import { SubdirectoryArrowLeftRounded } from '@material-ui/icons';
+/*global chrome*/
 import React from 'react';
 
 class loginUtil {
@@ -17,15 +19,6 @@ class loginUtil {
     localStorage.removeItem('jinnmailToken');
   }
 
-  verifyCode = () => {
-    return (localStorage.getItem('verifyCode') === 'true');
-  }
-
-  // userId = () => {
-  //   const userId = JSON.parse(atob(localStorage.getItem("jinnmailToken").split('.')[1])).userId
-
-  //   return userId;
-  // }
 }
 
 export const LoginUtil = new loginUtil(); 
