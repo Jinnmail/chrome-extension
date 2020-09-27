@@ -2,11 +2,12 @@
 
 ### Prepare Release
 ```
-change global variable in background.js
+change global variable in public/scripts/background.js
 use .env not .env.local for building a release so test server urls get used instead of your local
 npm run build
 zip build folder to build.zip
 create a new release on GitHub release page and upload build.zip.
+put the two settins back: global variable and .env.local
 ```
 
 ### Test Extension

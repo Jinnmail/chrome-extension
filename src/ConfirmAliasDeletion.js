@@ -51,7 +51,7 @@ function ConfirmAliasDeletion(props) {
   const handleModalClose = async (agree) => {
     if (agree === true) { // explicity test for true hitting backdrop passes an object
       await dispatch(deleteAlias(aliasId));
-      props.history.goBack();
+      props.history.push('/allAliases');
     }
     setModalOpen(false);
   }

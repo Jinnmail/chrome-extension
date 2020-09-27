@@ -12,6 +12,7 @@ import Account from './Account';
 import Alias from './Alias'; 
 import CreateAlias from './CreateAlias'; 
 import AllAliases from './AllAliases';
+import ManageInvites from './ManageInvites';
 
 function App() {
 
@@ -75,55 +76,24 @@ function App() {
   return (
     <Router>
       <Switch>
-        {/* <Route exact path={['/forgotPassword', '/changePassword']}>
-          <ForgotPassword />
-        </Route>
-        <Route exact path={["/forgotPasswordSet", '/changePasswordSet']}>
-          <ForgotPasswordSet />
-        </Route>
-        <PrivateRoute2 exact path="/signedin">
-          <SignedIn />
-        </PrivateRoute2>
         <Route path="/notsignedin">
           <NotSignedIn />
         </Route>
-        <PrivateRoute exact path="/alias/:aliasId">
-          <Alias />
-        </PrivateRoute>
-        <PrivateRoute exact path="/createAlias">
-          <CreateAlias />
+        <PrivateRoute exact path="/signedin">
+          <SignedIn />
         </PrivateRoute>
         <PrivateRoute exact path = "/allAliases">
           <AllAliases />
         </PrivateRoute>
+        <PrivateRoute exact path="/alias/:aliasId">
+          <Alias />
+        </PrivateRoute>
         <PrivateRoute exact path="/account">
           <Account />
         </PrivateRoute>
-        <Route path="/signUp">
-          <SignUp />
-        </Route>
-        <Route path="/login">
-          <Login />
-        </Route>
-        <Route path="/verifyCode">
-          <VerifyCode />
-        </Route>
-        <Route path="/verifyCode2">
-          <VerifyCodeNoPrevPath />
-        </Route>
         <PrivateRoute exact path="/invites">
           <ManageInvites />
         </PrivateRoute>
-        <Route path="/checkout">
-          <Checkout />
-        </Route>
-        {defaultPage()} */}
-        <PrivateRoute exact path="/signedin">
-          <SignedIn />
-        </PrivateRoute>
-        <Route path="/notsignedin">
-          <NotSignedIn />
-        </Route>
         <Redirect to='/signedin' />
       </Switch>
     </Router>

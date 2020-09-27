@@ -69,8 +69,9 @@ function Search(props) {
       freeSolo
       inputValue={searchValue}
       options={userAliases}
-      disableCloseOnSelect
-      open={keepOpen}
+      closeIcon=''
+      // disableCloseOnSelect
+      // open={keepOpen}
       getOptionLabel={(option) => option.alias + option.refferedUrl}
       renderOption={(option, { selected }) => (
         <Grid container>

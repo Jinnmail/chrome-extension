@@ -122,14 +122,11 @@ function Account(props) {
     <Fragment>
       <Grid container space={2}>
         <Grid item xs={12}>
-          {/* {LoginUtil.loggedIn() && <NavBar />} */}
+          {LoginUtil.loggedIn() && <NavBar />}
         </Grid>
         <Grid item xs={12}>
           &nbsp;
         </Grid>
-        {/* <Grid item xs={12}>
-          <Button variant="outlined" color="primary" onClick={() => props.history.goBack()}>&lt; Back</Button>
-        </Grid> */}
         <Grid item xs={12} style={{textAlign: 'center'}}>
           <h2 style={{color: 'gray'}}>Preferences</h2>
         </Grid>
@@ -146,106 +143,14 @@ function Account(props) {
             </Link>
           </div>
         </Grid>
-
         <Grid item xs={12}>
           <h3 style={{color: 'gray'}}>Account Email</h3>
         </Grid>
-        <Hidden mdUp>
-          <Grid item xs={12} style={{textAlign: 'left'}}>
-            <b>All aliases will forward to this address.</b>
-          </Grid>
-          <Grid item xs={12}>
-            {user && user.email}
-          </Grid>
-        </Hidden>
-        <Hidden smDown>
-          <Grid item xs={12} style={{textAlign: 'left'}}>
-            &nbsp;&nbsp;&nbsp;<b style={{color: 'gray'}}>All aliases will forward to this address.</b>
-          </Grid>
-          <Grid item xs={12}>
-            &nbsp;&nbsp;&nbsp;{user && user.email}
-          </Grid>
-        </Hidden>
-        <Grid item xs={12}>
-          <h3 style={{color: 'gray'}}>Change password</h3>
+        <Grid item xs={12} style={{textAlign: 'left'}}>
+          &nbsp;&nbsp;&nbsp;<b style={{color: 'gray'}}>All aliases will forward to this address.</b>
         </Grid>
         <Grid item xs={12}>
-          <TextField 
-            variant='outlined'
-            label='Current Password'
-            type={values.showPassword ? 'text' : 'password'}
-            value={values.password}
-            onChange={onPasswordChanged('password')}
-            fullWidth
-            autoComplete="new-password"
-            InputProps={{
-              endAdornment: (
-                <Fragment>
-                  <InputAdornment position="end">
-                    <Tooltip title="Show/Hide typing">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleClickShowPassword}
-                        onMouseDown={handleMouseDownPassword}
-                        edge="end"
-                      >
-                        {values.showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
-                      </IconButton>
-                    </Tooltip>
-                  </InputAdornment>
-                    <InputAdornment position="end">
-                      {showSuccessIcon
-                        ?
-                          <CheckCircleOutlineIcon style={{color: 'green'}}  />
-                        :
-                          <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                      }
-                    </InputAdornment>
-                </Fragment>
-              )
-            }}
-          />
-          {/* <div style={{marginBottom: 5}}>
-            <small>
-              <Link to={location}>Forgot Password?</Link>
-            </small>
-          </div> */}
-        </Grid>
-        <Grid item xs={12}>&nbsp;</Grid>
-        <Grid item xs={12}>
-          <TextField 
-            variant='outlined'
-            label='New Password'
-            type={values.showConfirm ? 'text' : 'password'}
-            value={values.confirm}
-            onChange={onConfirmChanged('confirm')}
-            fullWidth
-            autoComplete="new-password"
-            error={passwordErrorText !== ''}
-            helperText={passwordErrorText || "Min 12 chars. At least 1 number, 1 capital letter, and 1 symbol"}
-            InputProps={{
-              endAdornment: (
-                <Fragment>
-                  <InputAdornment position="end">
-                    <Tooltip title="Show/Hide typing">
-                      <IconButton
-                        aria-label="toggle email visibility"
-                        onClick={handleClickShowConfirm}
-                        onMouseDown={handleMouseDownConfirm}
-                        edge="end"
-                      >
-                        {values.showConfirm ? <VisibilityIcon /> : <VisibilityOffIcon />}
-                      </IconButton>
-                    </Tooltip>
-                  </InputAdornment>
-                  <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                </Fragment>
-              )
-            }}
-          />
-        </Grid>
-        <Grid item xs={12} style={{textAlign: "right"}}>
-          <Button variant="outlined" color="primary" onClick={onSavePasswordClicked} disabled={!allowedToSubmit}>Save new password</Button>
+          &nbsp;&nbsp;&nbsp;{user && user.email}
         </Grid>
       </Grid>
       <Grid container>
