@@ -1,6 +1,7 @@
 // const JM_API_URL = 'https://jinnmail.com/api/v1';
 // const JM_API_URL = 'https://api.testling.xyz/api/v1/';
-const JM_API_URL = 'http://localhost:3000/api/v1/';
+// const JM_API_URL = 'http://localhost:3000/api/v1/';
+const JM_API_URL = 'https://whatismyname2.xyz/api/v1/';
 
 let url = JM_API_URL;
 

@@ -24,5 +24,6 @@ yarn-error.log*
 
 # other
 .env.local
+.xenv.local
 .vscode/
 build.zip
