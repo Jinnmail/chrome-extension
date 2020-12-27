@@ -1,6 +1,6 @@
 {
   "name": "Jinnmail — Privacy for your email address",
-  "version": "1.35",
+  "version": "1.36",
   "description": "Camouflage your Gmail. Fight spam, hackers, surveillance with secret temporary aliases while your address stays private & spam-free.",
   "author": "Jinnmail <https://jinnmail.com>", 
   "permissions": [
@@ -26,7 +26,7 @@
     "matches": [
         "https://jinnmail.com/account/",
         "https://jinnmail.com/",
-        "https://account.jinnmail.com/*", 
+        "https://myaccount.jinnmail.com/*", 
         "http://localhost:3001/*", 
         "https://testling.xyz/*"
     ],
